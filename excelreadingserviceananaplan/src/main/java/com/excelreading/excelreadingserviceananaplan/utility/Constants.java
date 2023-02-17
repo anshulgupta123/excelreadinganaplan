@@ -10,4 +10,5 @@ public interface Constants {
     String FILE_CANNOT_BE_NULL = "file.cannot.be.null";
     String FILE_CANNOT_BE_EMPTY = "file.cannot.be.empty";
     String PROCESSED_EXCEL_FILE_FOLDER_PATH = "processed.excel.file.folder.path";
+    String NOT_SAVED_IN_MYSQL = "not.saved.in.mysql";
 }

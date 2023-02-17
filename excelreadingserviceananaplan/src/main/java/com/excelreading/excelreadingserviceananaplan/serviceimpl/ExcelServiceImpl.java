@@ -91,6 +91,7 @@ public class ExcelServiceImpl implements ExcelService {
         employee.setEmployeeDepartment(row.getCell(2).getStringCellValue());
         employee.setEmployeeName(row.getCell(1).getStringCellValue());
         employee.setEmployeeSalary(row.getCell(3).getNumericCellValue());
+        employee.setStatus(Integer.valueOf(env.getProperty(Constants.NOT_SAVED_IN_MYSQL)));
         return employee;
     }
 

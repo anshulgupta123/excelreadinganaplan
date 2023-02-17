@@ -1,4 +1,4 @@
-package com.excelreading.excelreadingserviceananaplan.modal;
+package com.anaplan.dataexcelmicroservice.modal;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,8 +14,9 @@ public class Employee implements Serializable {
     private String employeeName;
     private String employeeCode;
     private String employeeDepartment;
-    private  Double employeeSalary;
-    private  Integer status;
+    private Double employeeSalary;
+
+    private Integer status;
 
     public String get_id() {
         return _id;
@@ -65,3 +66,4 @@ public class Employee implements Serializable {
         this.status = status;
     }
 }
+
