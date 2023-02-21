@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface DataExcelService {
-    public Object migrateDataToEmployeeData();
+    public Object migrateDataToEmployeeData(Long fileId);
 
   public  Object getEmployeeDataById(Long employeeId);
 

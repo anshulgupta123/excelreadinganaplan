@@ -35,10 +35,10 @@ public class DataExcelServiceImpl implements DataExcelService {
     EmployeeDataRepository employeeDataRepository;
 
     @Override
-    public Object migrateDataToEmployeeData() {
+    public Object migrateDataToEmployeeData(Long fileId) {
         logger.info("Inside migrateDataToEmployeeData of DataExcelServiceImpl");
         try {
-            employeeDataRepository.saveAll(populateEmployeeDataFromEmployee(getUnproceesedDataFromEmployee()));
+            employeeDataRepository.saveAll(populateEmployeeDataFromEmployee(getUnproceesedDataFromEmployee(fileId)));
             return new Response<>(env.getProperty(Constants.SUCCESS_CODE), env.getProperty(Constants.DATA_MIGRATED_SUCCESSFULLY));
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,12 +99,10 @@ public class DataExcelServiceImpl implements DataExcelService {
         }
     }
 
-    public List<Employee> getUnproceesedDataFromEmployee() throws Exception {
+    public List<Employee> getUnproceesedDataFromEmployee(Long fileId) throws Exception {
         logger.info("Inside getUnproceesedDataFromEmployee of DataExcelServiceImpl");
-        List<Employee> employeeData = employeeRepository.findByStatus(Integer.valueOf(env.getProperty(Constants.NOT_SAVED_IN_MYSQL)));
+        List<Employee> employeeData = employeeRepository.findByFileId(fileId);
         logger.info("Data from repo is :{}", employeeData);
-        logger.info("Calling updateStatusInEmployeeTableMongoDb");
-        updateStatusInEmployeeTableMongoDb(employeeData);
         return employeeData;
     }
 
@@ -120,14 +118,6 @@ public class DataExcelServiceImpl implements DataExcelService {
         return employeeDataList;
     }
 
-    public void updateStatusInEmployeeTableMongoDb(List<Employee> employeeData) throws Exception {
-        logger.info("Inside updateStatusInEmployeeTableMongoDb of DataExcelServiceImpl");
-        for (Employee employee : employeeData) {
-            employee.setStatus(Integer.valueOf(env.getProperty(Constants.DATA_PROCEESED_STATUS)));
-        }
-        employeeRepository.saveAll(employeeData);
-        logger.info("Data updated successfully");
-    }
 
     public EmployeeDto populateEmployeeDtoFromEmployeeData(EmployeeData employee) throws Exception {
         logger.info("Inside populateEmployeeDtoFromEmployeeData of DataExcelServiceImpl");

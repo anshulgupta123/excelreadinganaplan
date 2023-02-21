@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends MongoRepository<Employee, String> {
 
-    @Query(value="{ 'status' : ?0 }", fields="{ 'employeeCode' : 1, 'employeeName' : 1}")
-    List<Employee> findByStatus(Integer status);
+    @Query(value="{ 'fileId' : ?0 }", fields="{ 'employeeCode' : 1, 'employeeName' : 1}")
+    List<Employee> findByFileId(Long fileId);
 }
